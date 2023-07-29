@@ -1,4 +1,4 @@
-#Python
+# Python
 
 ## Data-Types
 In Python, data types are classifications that define the type of data that can be stored in a variable. Python is a dynamically-typed language, meaning you don't need to explicitly specify the data type when declaring a variable; the interpreter infers it based on the assigned value. Python supports several built-in data types, including:
@@ -725,3 +725,140 @@ In OOP, the fundamental building blocks are:
 6. **Inheritance**: Inheritance is a mechanism that allows a class (subclass) to inherit attributes and methods from another class (superclass). It promotes code reusability and helps to create a hierarchy of classes. The subclass can add its own unique attributes and methods or override the inherited ones.
 
 7. **Polymorphism**: Polymorphism allows different classes to be treated as if they are objects of a common parent class. It enables flexibility and dynamic behavior in the code.
+
+## *args and **kwargs
+In Python, `*args` and `**kwargs` are special syntax used in function definitions to handle variable-length argument lists. They allow functions to accept an arbitrary number of positional and keyword arguments, respectively, without having to explicitly define them in the function signature. Let's explore each of them in more detail:
+
+1. **`*args` (Arbitrary Positional Arguments):**
+   When you use `*args` in a function definition, it allows the function to accept any number of positional arguments as a tuple. The `*args` parameter name is a convention, and you can use any name preceded by an asterisk (*).
+
+   Example:
+
+   ```python
+   def sum_numbers(*args):
+       total = 0
+       for num in args:
+           total += num
+       return total
+
+   result = sum_numbers(1, 2, 3, 4)
+   print(result)  # Output: 10
+   ```
+
+2. **`**kwargs` (Arbitrary Keyword Arguments):**
+   Similar to `*args`, `**kwargs` allows a function to accept any number of keyword arguments as a dictionary. The `**kwargs` parameter name is also a convention, and you can use any name preceded by two asterisks (**).
+
+   Example:
+
+   ```python
+   def print_details(**kwargs):
+       for key, value in kwargs.items():
+           print(f"{key}: {value}")
+
+   print_details(name="John", age=30, occupation="Engineer")
+   ```
+   Output:
+   ```
+   name: John
+   age: 30
+   occupation: Engineer 
+   ```
+
+   In this example, the `print_details` function can accept any number of keyword arguments, and it prints each key-value pair in the `kwargs` dictionary.
+
+Combining `*args` and `**kwargs` in a function definition allows the function to accept both positional and keyword arguments. When using them together, `*args` should always appear before `**kwargs`.
+
+Example:
+
+```python
+def example_function(arg1, arg2, *args, **kwargs):
+    print("Regular arguments:", arg1, arg2)
+    print("Arbitrary positional arguments (*args):", args)
+    print("Arbitrary keyword arguments (**kwargs):", kwargs)
+
+example_function(1, 2, 3, 4, 5, name="John", age=30)
+```
+
+Output:
+```
+Regular arguments: 1 2
+Arbitrary positional arguments (*args): (3, 4, 5)
+Arbitrary keyword arguments (**kwargs): {'name': 'John', 'age': 30}
+```
+
+In this example, `arg1` and `arg2` are regular positional arguments, `args` collects the arbitrary positional arguments as a tuple, and `kwargs` collects the arbitrary keyword arguments as a dictionary.
+
+## The "walrus operator" 
+It is represented by the := symbol. It is also known as the "assignment expression." This operator was introduced in Python 3.8 and is a powerful addition to the language.
+
+The walrus operator allows you to assign a value to a variable as part of an expression, rather than needing a separate line for assignment. It is particularly useful in scenarios where you want to assign a value and use it in the same expression, which would otherwise require duplication of code or additional variables.
+
+The basic syntax of the walrus operator is as follows:
+
+```
+variable := expression
+```
+
+Here's a simple example of how the walrus operator can be used:
+
+```python
+# Without walrus operator
+numbers = [1, 2, 3, 4, 5]
+squared_numbers = [num ** 2 for num in numbers if num % 2 == 0]
+print(squared_numbers)
+
+# With walrus operator
+numbers = [1, 2, 3, 4, 5]
+squared_numbers = [square for num in numbers if (square := num ** 2) and num % 2 == 0]
+print(squared_numbers)
+```
+
+In the second example, the walrus operator `(square := num ** 2)` allows us to assign the square of the current number to the variable `square` and use it directly in the same list comprehension. Without the walrus operator, we would need to compute the square twice (once in the condition and once in the list comprehension), which can be less efficient and less readable.
+
+## List comprehension 
+It is a concise and expressive way in Python to create lists using a single line of code. It allows you to generate new lists by applying an expression to each item in an existing iterable (e.g., list, tuple, or string) and optionally filter the elements based on certain conditions. List comprehension provides a more readable and Pythonic way to perform list manipulations compared to traditional for loops.
+
+The general syntax for list comprehension is:
+
+```
+[expression for item in iterable if condition]
+```
+
+- `expression`: The operation or transformation applied to each item in the iterable to create the new list element.
+- `item`: A variable representing each item in the iterable.
+- `iterable`: The existing sequence (list, tuple, string, etc.) used to generate the new list.
+- `condition` (optional): An optional filter that determines whether to include the item in the new list.
+
+Let's see some examples to illustrate list comprehension:
+
+**Example 1: Create a list of squares of numbers from 1 to 5:**
+
+```python
+squares = [x**2 for x in range(1, 6)]
+print(squares)  # Output: [1, 4, 9, 16, 25]
+```
+
+**Example 2: Create a list of even numbers from 1 to 10:**
+
+```python
+even_numbers = [x for x in range(1, 11) if x % 2 == 0]
+print(even_numbers)  # Output: [2, 4, 6, 8, 10]
+```
+
+**Example 3: Convert a list of strings to uppercase:**
+
+```python
+words = ['hello', 'world', 'python']
+upper_words = [word.upper() for word in words]
+print(upper_words)  # Output: ['HELLO', 'WORLD', 'PYTHON']
+```
+
+**Example 4: Create a list of tuples containing both original and squared values:**
+
+```python
+numbers = [1, 2, 3]
+squared_tuples = [(num, num**2) for num in numbers]
+print(squared_tuples)  # Output: [(1, 1), (2, 4), (3, 9)]
+```
+
+https://www.youtube.com/@b001/featured
